@@ -1,20 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
-package pingpong;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import javax.swing.*;
+import pingpong.GameFrame;
 
-/**
- *
- * @author gaint
- */
 public class PingPong {
 
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String[] args) {
-        // TODO code application logic here
+        GameFrame frame = new GameFrame();
     }
     
 }
