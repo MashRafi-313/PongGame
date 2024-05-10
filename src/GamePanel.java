@@ -58,15 +58,41 @@ public class GamePanel extends JPanel implements Runnable {
          ball.move();
      }
      public void checkCollision(){
-         //bounce ball
+         //bounce ball upper
          if(ball.y <= 0){
              ball.setYDirection(-ball.yVelocity);
          }
+         //bounce ball down
          if(ball.y >= GAME_HEIGHT - BALL_DIAMETER){
              ball.setYDirection(-ball.yVelocity);
          }
-         //if paddle move upwards
-         if(paddle1.y <= 0) paddle1.y = 0;
+         //collision  between ball & paddle1
+         if(ball.intersects(paddle1)){
+             ball.xVelocity = Math.abs(ball.xVelocity);//ball moving left previous now right move
+             ball.xVelocity++;//speed increase after collision
+             if(ball.yVelocity > 0) //ball moving down
+                 ball.yVelocity++;//down has positive point of y
+             else//ball moving up 
+                 ball.yVelocity--;//up has negative point of y
+             ball.setXDirection(ball.xVelocity);
+             ball.setYDirection(ball.yVelocity);
+         }
+         
+         //collision  between ball & paddle2
+         if(ball.intersects(paddle2)){
+             ball.xVelocity = - ball.xVelocity;//ball moving right previous now left move
+             ball.xVelocity--;//speed increase after collision
+             if(ball.yVelocity > 0) //ball moving down
+                 ball.yVelocity++;//down has positive point of y
+             else//ball moving up 
+                 ball.yVelocity--;//up has negative point of y
+             ball.setXDirection(ball.xVelocity);
+             ball.setYDirection(ball.yVelocity);
+         }
+         
+         
+         //if paddle move upwards & downwards
+         if(paddle1.y <= 0) paddle1.y = 0;//upper point reached
          if(paddle1.y >= (GAME_HEIGHT - PADDLE_HEIGHT))
              paddle1.y = GAME_HEIGHT - PADDLE_HEIGHT;
          if(paddle2.y <= 0) paddle2.y = 0;
