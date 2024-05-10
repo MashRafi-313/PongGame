@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
-import pingpong.GamePanel;
+
 
 
 public class GameFrame extends JFrame{
@@ -18,28 +18,5 @@ public class GameFrame extends JFrame{
         this.setVisible(true);
         this.setLocationRelativeTo(null);
     }
-    public void newBall(){
-        
-    }public void newPaddles(){
-        
-    }public void paint(Graphics g){
-        
-    }public void draw(Graphics g){
-        
-    }public void move(){
-        
-    }public void checkCollision(){
-        
-    }
-    public void run(){
-        
-    }
-    public class AL extends KeyAdapter{
-        public void keyPressed(KeyEvent e){
-            
-        }
-        public void keyReleased(KeyEvent e){
-            
-        }
-    }
+  
 }
