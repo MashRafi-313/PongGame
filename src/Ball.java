@@ -9,33 +9,37 @@ public class Ball extends Rectangle {
     int yVelocity;
     //initalSpeed helps to change(x,y) pair in large number thus increasing speed
     int initialSpeed = 2;
-    Ball(int x , int y, int width,int height){
-        super(x,y,width,height);
+
+    Ball(int x, int y, int width, int height) {
+        super(x, y, width, height);
         random = new Random();
         // 0 for left 1 for right
         int randomXDirection = random.nextInt(2);
-        if(randomXDirection == 0) randomXDirection--;
-        setXDirection(randomXDirection*initialSpeed);
-        
+        if (randomXDirection == 0) randomXDirection--;
+        setXDirection(randomXDirection * initialSpeed);
+
         int randomYDirection = random.nextInt(2);
-        if(randomYDirection == 0) randomYDirection--;
-        setYDirection(randomYDirection*initialSpeed);
-        
+        if (randomYDirection == 0) randomYDirection--;
+        setYDirection(randomYDirection * initialSpeed);
+
     }
-    
-    public void setXDirection(int randomXDirection){
+
+    public void setXDirection(int randomXDirection) {
         xVelocity = randomXDirection;
     }
-    public void setYDirection(int randomYDirection){
+
+    public void setYDirection(int randomYDirection) {
         yVelocity = randomYDirection;
     }
-    public void move(){
+
+    public void move() {
         x += xVelocity;
         y += yVelocity;
     }
-    public void draw(Graphics g){
-       g.setColor(Color.WHITE);
-       g.fillOval(x, y, width, height);
+
+    public void draw(Graphics g) {
+        g.setColor(Color.WHITE);
+        g.fillOval(x, y, width, height);
     }
-    
+
 }
