@@ -1,14 +1,22 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
-import javax.swing.*;
 
-public class Ball extends Rectangle {
+class CircularBall extends Rectangle {
+    CircularBall(int x, int y, int width, int height) {
+        super(x, y, width, height);
+    }
+
+    public void draw(Graphics g) {
+        g.setColor(Color.RED);
+        g.fillOval(x, y, width, height);
+    }
+}
+
+public class Ball extends CircularBall {
     Random random;
-    int xVelocity;
-    int yVelocity;
-    //initalSpeed helps to change(x,y) pair in large number thus increasing speed
     int initialSpeed = 2;
+    private int xVelocity;
+    private int yVelocity;
 
     Ball(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -16,20 +24,28 @@ public class Ball extends Rectangle {
         // 0 for left 1 for right
         int randomXDirection = random.nextInt(2);
         if (randomXDirection == 0) randomXDirection--;
-        setXDirection(randomXDirection * initialSpeed);
+        setXVelocity(randomXDirection * initialSpeed);
 
         int randomYDirection = random.nextInt(2);
         if (randomYDirection == 0) randomYDirection--;
-        setYDirection(randomYDirection * initialSpeed);
+        setYVelocity(randomYDirection * initialSpeed);
 
     }
 
-    public void setXDirection(int randomXDirection) {
+    public void setXVelocity(int randomXDirection) {
         xVelocity = randomXDirection;
     }
 
-    public void setYDirection(int randomYDirection) {
+    public int getXVelocity() {
+        return xVelocity;
+    }
+
+    public void setYVelocity(int randomYDirection) {
         yVelocity = randomYDirection;
+    }
+
+    public int getYVelocity() {
+        return yVelocity;
     }
 
     public void move() {

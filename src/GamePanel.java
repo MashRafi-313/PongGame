@@ -16,7 +16,7 @@ public class GamePanel extends JPanel implements Runnable {
     Image image;
     Graphics graphics;
     Random random;
-    Paddle paddle1, paddle2;
+    RectangularPaddle paddle1, paddle2;
     Ball ball;
     Score score;
 
@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
         paddle1.draw(g);
         paddle2.draw(g);
         ball.draw(g);
-        score.draw(g);
+        score.drawScore(g);
     }
 
     public void move() {
@@ -66,44 +66,61 @@ public class GamePanel extends JPanel implements Runnable {
     public void checkCollision() {
         //bounce ball upper
         if (ball.y <= 0) {
-            ball.setYDirection(-ball.yVelocity);
+            int yVelocityOfBall = ball.getYVelocity();
+            ball.setYVelocity(-yVelocityOfBall);
         }
         //bounce ball down
         if (ball.y >= GAME_HEIGHT - BALL_DIAMETER) {
-            ball.setYDirection(-ball.yVelocity);
+            int yVelocityOfBall = ball.getYVelocity();
+            ball.setYVelocity(-yVelocityOfBall);
         }
         //collision  between ball & paddle1
-        if (ball.intersects(paddle1)) {
-            ball.xVelocity = Math.abs(ball.xVelocity);//ball moving left previous now right move
-            ball.xVelocity++;//speed increase after collision
-            if (ball.yVelocity > 0) //ball moving down
-                ball.yVelocity++;//down has positive point of y
-            else//ball moving up
-                ball.yVelocity--;//up has negative point of y
-            ball.setXDirection(ball.xVelocity);
-            ball.setYDirection(ball.yVelocity);
+        if (ball.intersects((Rectangle) paddle1)) {
+            int xVelocityOfBall = ball.getXVelocity();
+            int yVelocityOfBall = ball.getYVelocity();
+
+            xVelocityOfBall = Math.abs(xVelocityOfBall);
+            xVelocityOfBall++;//ball moving left previous now right move
+            ball.setXVelocity(xVelocityOfBall);//speed increase after collision
+            if (yVelocityOfBall > 0) {
+                //ball moving down
+                yVelocityOfBall++;
+                ball.setYVelocity(yVelocityOfBall);//down has positive point of y
+            } else {
+                //ball moving up
+                yVelocityOfBall++;
+                ball.setYVelocity(yVelocityOfBall);  //up has negative point of y
+            }
+
+            ball.setXVelocity(xVelocityOfBall);
+            ball.setYVelocity(yVelocityOfBall);
         }
 
         //collision  between ball & paddle2
-        if (ball.intersects(paddle2)) {
-            ball.xVelocity = -ball.xVelocity;//ball moving right previous now left move
-            ball.xVelocity--;//speed increase after collision
-            if (ball.yVelocity > 0) //ball moving down
-                ball.yVelocity++;//down has positive point of y
-            else//ball moving up
-                ball.yVelocity--;//up has negative point of y
-            ball.setXDirection(ball.xVelocity);
-            ball.setYDirection(ball.yVelocity);
+        if (ball.intersects((Rectangle) paddle2)) {
+            //ball moving right previous now left move
+            int xVelocityOfBall = -ball.getXVelocity();
+            xVelocityOfBall--;
+            ball.setXVelocity(xVelocityOfBall);
+
+            int yVelocityOfBall = -ball.getYVelocity();//speed increase after collision
+            if (yVelocityOfBall > 0) {
+                //ball moving down
+                yVelocityOfBall++;//down has positive point of y
+            } else//ball moving up
+                yVelocityOfBall--;//up has negative point of y
+            ball.setXVelocity(xVelocityOfBall);
+            ball.setYVelocity(yVelocityOfBall);
         }
 
 
         //if paddle move upwards & downwards
-        if (paddle1.y <= 0) paddle1.y = 0;//upper point reached
-        if (paddle1.y >= (GAME_HEIGHT - PADDLE_HEIGHT))//lower point reached
-            paddle1.y = GAME_HEIGHT - PADDLE_HEIGHT;
-        if (paddle2.y <= 0) paddle2.y = 0;
-        if (paddle2.y >= (GAME_HEIGHT - PADDLE_HEIGHT))
-            paddle2.y = GAME_HEIGHT - PADDLE_HEIGHT;
+        if (paddle1.getYDirection() <= 0) paddle1.setYDirection(0);//upper point reached
+        if (paddle1.getYDirection() >= (GAME_HEIGHT - PADDLE_HEIGHT))//lower point reached
+            paddle1.setYDirection(GAME_HEIGHT - PADDLE_HEIGHT);
+        if (paddle2.getYDirection() <= 0) paddle2.setYDirection(0);
+        if (paddle2.getYDirection() >= (GAME_HEIGHT - PADDLE_HEIGHT))
+            paddle2.setYDirection(GAME_HEIGHT - PADDLE_HEIGHT);
 
 
         // give player point

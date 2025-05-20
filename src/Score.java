@@ -1,10 +1,11 @@
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
+
+abstract class ShowScore {
+    abstract public void drawScore(Graphics g);
+}
 
 
-public class Score extends Rectangle {
+public class Score extends ShowScore {
     static int GAME_WIDTH;
     static int GAME_HEIGHT;
     int player1, player2;
@@ -14,7 +15,7 @@ public class Score extends Rectangle {
         Score.GAME_HEIGHT = GAME_HEIGHT;
     }
 
-    public void draw(Graphics g) {
+    public void drawScore(Graphics g) {
         g.setColor(Color.white);
         g.setFont(new Font("Consolas", Font.PLAIN, 60));
         g.drawLine((GAME_WIDTH / 2), 0, (GAME_WIDTH / 2), GAME_HEIGHT);
